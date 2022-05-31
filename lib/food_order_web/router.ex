@@ -7,12 +7,12 @@ defmodule FoodOrderWeb.Router do
     plug :fetch_live_flash
     plug :put_root_layout, {FoodOrderWeb.LayoutView, :root}
     plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug :put_secure_browser_headers, %{"content-security-policy" => "default-src 'self'"}
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
+  # pipeline :api do
+  #   plug :accepts, ["json"]
+  # end
 
   scope "/", FoodOrderWeb do
     pipe_through :browser
@@ -25,6 +25,7 @@ defmodule FoodOrderWeb.Router do
   #   pipe_through :api
   # end
 
+  # coveralls-ignore-start
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
@@ -41,6 +42,8 @@ defmodule FoodOrderWeb.Router do
       live_dashboard "/dashboard", metrics: FoodOrderWeb.Telemetry
     end
   end
+
+  # coveralls-ignore-stop
 
   # Enables the Swoosh mailbox preview in development.
   #
