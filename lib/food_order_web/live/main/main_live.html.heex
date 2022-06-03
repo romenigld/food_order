@@ -1,7 +1,7 @@
 <nav class="container flex items-center justify-between py-4 mx-auto">
   <div id="logo">
     <a href="#"><img src="" alt="">
-      ElxPro
+      <img src={ Routes.static_path(@socket, "/images/logo.png") } alt="logo" class="w-16 h-16">
     </a>
   </div>
   <div id="menu">
@@ -11,7 +11,12 @@
       <li class="ml-6"><a href="">Menu</a></li>
       <li class="ml-6"><a href="">Menu</a></li>
       <li class="ml-6"><a href="">Menu</a></li>
-      <li class="ml-6"><a href="">Menu</a></li>
+      <li class="ml-6" id="shopping-cart">
+        <a href="inline-block px-4 py-2 rounded-full items-center">
+          <img src={ Routes.static_path(@socket, "/images/cart.svg") } alt="cart" class="w-6 h-6">
+          <span class="pr-2 text-xs font-bold text-black">10</span>
+        </a>
+      </li>
     </ul>
   </div>
 </nav>
@@ -21,10 +26,10 @@
     <div class="w-1/2" id="hero-info">
       <h6 class="text-lg" id="hero-info-text"><em>Make your order</em></h6>
       <h1 class="text-3xl font-bold md:text-6xl">Right now!</h1>
-      <button class="px-6 py-2 mt-5 font-bold text-white bg-black rounded-full btn-primary">Order Now</button>
+      <button class="px-6 py-2 mt-5 font-bold text-white bg-yellow-600 rounded-full btn-primary">Order Now</button>
     </div>
     <div class="w-1/2" id="hero-info-image">
-      <img src="" alt="">im
+      <img src={ Routes.static_path(@socket, "/images/hero.svg") } alt="hero">
     </div>
   </container>
 </section>
@@ -36,7 +41,7 @@
 
       <%= for _ <- 0..10 do %>
         <div class="p-4 mb-2 rounded-lg shadow-lg lg:w-64">
-          <img src="" alt="" class="h-40 mx-auto mb-4">Img
+          <img src={ Routes.static_path(@socket, "/images/food.svg") } alt="food" class="h-40 mx-auto mb-4">
           <div class="text-center">
             <h2 class="mb-4 text-lg">Product with Name</h2>
             <span class="px-4 py-1 text-xs uppercase rounded-full size">Small</span>
