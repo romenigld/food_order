@@ -3,6 +3,6 @@ defmodule FoodOrderWeb.MainLive do
 
   def mount(_params, _session, socket) do
 
-    {:ok, socket |> assign(name: "Romenig", age: "38")}
+    {:ok, socket}
   end
 end
