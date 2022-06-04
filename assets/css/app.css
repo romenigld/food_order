@@ -25,12 +25,12 @@ body {
 
 nav li:last-child a {
   background-color: var(--primary);
-  color: white
+  color: var(--pure)
 }
 
 nav li:last-child a:hover {
   background-color: var(--primary-hover);
-  color: white
+  color: var(--pure)
 }
 
 nav li a {
@@ -68,7 +68,7 @@ section.hero {
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-hover);
+  background-color: var(--secondary);
 }
 
 section.cart {
