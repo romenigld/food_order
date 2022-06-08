@@ -60,7 +60,8 @@ defmodule FoodOrder.MixProject do
       {:excoveralls, "~> 0.10", only: :test},
       {:sobelow, "~> 0.8", only: :dev},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev}
+      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
+      {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false}
     ]
   end
 
