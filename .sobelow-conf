@@ -6,7 +6,7 @@
   exit: "false",
   format: "txt",
   out: "",
-  threshold: "high",
-  ignore: ["Config.CSP", "Config.HTTPS"],
-  ignore_files: []
+  threshold: "low",
+  ignore: ["Config.HTTPS"],
+  ignore_files: [""]
 ]

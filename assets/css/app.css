@@ -1,5 +1,100 @@
 /* This file is for your main application CSS */
-@import "./phoenix.css";
+
+/* Imports of the Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS of the app Food Order */
+:root {
+  --primary: #fe5f1e;
+  --primary-hover: #ec7944;
+  --secondary: #ffc82a;
+  --pure: #fff;
+  --dark: #232323;
+  --gray: #ccc;
+  --smooth: all .3s ease-in-out;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  --webkit-font-smoothing: antialiased;
+  color: var(--dark);
+}
+
+.primary-color{
+  color: #fe5f1e;
+}
+
+nav #menu li:last-child a {
+  background-color: var(--primary);
+  color: var(--pure)
+}
+
+nav #menu li:last-child a:hover {
+  background-color: var(--secondary);
+  color: var(--pure)
+}
+
+nav li a {
+  transition: var(--smooth);
+}
+
+nav li a:hover {
+  color: var(--primary);
+}
+
+section.hero {
+  background: var(--third);
+}
+
+.size {
+  background: var(--third);
+}
+
+.add-to-cart {
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  transition: var(--smooth);
+
+}
+
+.add-to-cart:hover {
+  background: var(--primary);
+  border-color: var(--pure);
+  color: var(--pure);
+}
+
+.btn-primary {
+  background: var(--primary);
+  transition: var(--smooth);
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary);
+}
+
+section.cart {
+  background: var(--secondary);
+}
+
+section.cart .amount {
+  color: var(--primary);
+}
+
+section.login {
+  background: var(--secondary);
+  min-height: calc(100vh - 86px);
+}
+
+section.login a {
+  color: var(--primary);
+  transition: var(--smooth);
+}
+
+section.login a:hover {
+  color: var(--primary-hover);
+}
 
 /* Alerts and form errors used by phx.new */
 .alert {
