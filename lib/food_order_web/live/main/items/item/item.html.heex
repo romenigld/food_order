@@ -1,11 +1,11 @@
  <div class="p-4 mb-2 rounded-lg shadow-lg lg:w-64" id={@id}>
-   <img src={ Routes.static_path(@socket, "/images/food.svg" ) } alt="food" class="h-40 mx-auto mb-4">
-   <div class="text-center">
-     <h2 class="mb-4 text-lg">Product with Name</h2>
+   <img src={ Routes.static_path(@socket, "/images/food.svg" ) } alt="food" class="h-40 mx-auto mb-4" data-role="product-img" data-id={@id}>
+   <div class="text-center" data-role="product-description">
+     <h2 class="mb-4 text-lg" data-role="product-name" data-id={@id}>Product with name</h2>
      <span class="px-4 py-1 text-xs uppercase rounded-full size">Small</span>
      <div class="flex items-center justify-around mt-6">
-       <span class="text-lg font-bold">$ 10</span>
-       <button class="flex items-center px-6 py-1 font-bold rounded-full add-to-cart">
+       <span class="text-lg font-bold" data-role="product-price" data-id={@id}>$ 10</span>
+       <button class="flex items-center px-6 py-1 font-bold rounded-full add-to-cart" data-role="product-add" data-id={@id}>
          <span>+</span>
          <span class="ml-4">add</span>
        </button>
