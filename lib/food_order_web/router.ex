@@ -1,20 +1,21 @@
 defmodule FoodOrderWeb.Router do
   use FoodOrderWeb, :router
 
-  @host :food_order
-        |> Application.fetch_env!(FoodOrderWeb.Endpoint)
-        |> Keyword.fetch!(:url)
-        |> Keyword.fetch!(:host)
+  host =
+    :food_order
+    |> Application.fetch_env!(FoodOrderWeb.Endpoint)
+    |> Keyword.fetch!(:url)
+    |> Keyword.fetch!(:host)
 
   @content_security_policy (case Mix.env() do
                               :prod ->
-                                "default-src 'self';connect-src wss://#{@host};img-src 'self' blob:;"
+                                "default-src 'self';connect-src wss://#{host};img-src 'self' blob:;"
 
                               _ ->
                                 "default-src 'self' 'unsafe-eval' 'unsafe-inline';" <>
-                                "connect-src ws://#{@host}:*;" <>
-                                "img-src 'self' blob: data:;" <>
-                                "font-src 'self' data:;"
+                                  "connect-src ws://#{host}:*;" <>
+                                  "img-src 'self' blob: data:;" <>
+                                  "font-src 'self' data:;"
                             end)
 
   pipeline :browser do
