@@ -12,9 +12,8 @@ defmodule FoodOrderWeb.Router do
 
                               _ ->
                                 "default-src 'self' 'unsafe-eval' 'unsafe-inline';" <>
-                                  "connect-src ws://#{@host}:*;" <>
-                                  "img-src 'self' blob: data:;"
-
+                                "connect-src ws://#{@host}:*;" <>
+                                "img-src 'self' blob: data:;" <>
                                 "font-src data:;"
                             end)
 
