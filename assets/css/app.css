@@ -16,8 +16,18 @@
   --smooth: all .3s ease-in-out;
 }
 
+@font-face {
+  font-family: 'Aclonica';
+  src: url("/fonts/aclonica-v18-latin-regular.woff2");
+}
+
+@font-face {
+  font-family: "Lobster";
+  src: url("/fonts/lobster-v28-latin-regular.woff2");
+}
+
 body {
-  font-family: 'Helvetica', cursive;
+  font-family: sans-serif, cursive;
   --webkit-font-smoothing: antialiased;
   color: var(--dark);
 }

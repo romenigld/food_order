@@ -9,7 +9,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Helvetica', 'sans-serif']
+        'sans': ['Helvetica', 'sans-serif'],
+        'aclonica': ['Aclonica'],
+        'lobster': ['Lobster'],
+        'cursive': ['cursive']
       },
     },
   },
