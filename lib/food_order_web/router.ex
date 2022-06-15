@@ -14,7 +14,7 @@ defmodule FoodOrderWeb.Router do
                                 "default-src 'self' 'unsafe-eval' 'unsafe-inline';" <>
                                 "connect-src ws://#{@host}:*;" <>
                                 "img-src 'self' blob: data:;" <>
-                                "font-src data:;"
+                                "font-src 'self' data:;"
                             end)
 
   pipeline :browser do
