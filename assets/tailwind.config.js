@@ -7,7 +7,14 @@ module.exports = {
     '../lib/*_web/**/*.*ex'
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'sans': ['Helvetica', 'sans-serif'],
+        'aclonica': ['Aclonica'],
+        'lobster': ['Lobster'],
+        'cursive': ['cursive']
+      },
+    },
   },
   plugins: [
     require('@tailwindcss/forms')

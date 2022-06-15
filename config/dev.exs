@@ -59,7 +59,7 @@ config :food_order, FoodOrderWeb.Endpoint,
 config :food_order, FoodOrderWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg|woff2)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/food_order_web/(live|views)/.*(ex)$",
       ~r"lib/food_order_web/templates/.*(eex)$"

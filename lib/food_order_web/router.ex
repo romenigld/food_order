@@ -1,13 +1,30 @@
 defmodule FoodOrderWeb.Router do
   use FoodOrderWeb, :router
 
+  host =
+    :food_order
+    |> Application.fetch_env!(FoodOrderWeb.Endpoint)
+    |> Keyword.fetch!(:url)
+    |> Keyword.fetch!(:host)
+
+  @content_security_policy (case Mix.env() do
+                              :prod ->
+                                "default-src 'self';connect-src wss://#{host};img-src 'self' blob:;"
+
+                              _ ->
+                                "default-src 'self' 'unsafe-eval' 'unsafe-inline';" <>
+                                  "connect-src ws://#{host}:*;" <>
+                                  "img-src 'self' blob: data:;" <>
+                                  "font-src 'self' data:;"
+                            end)
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, {FoodOrderWeb.LayoutView, :root}
     plug :protect_from_forgery
-    plug :put_secure_browser_headers, %{"content-security-policy" => "default-src 'self'"}
+    plug :put_secure_browser_headers, %{"content-security-policy" => @content_security_policy}
   end
 
   # pipeline :api do
