@@ -8,6 +8,7 @@ defmodule FoodOrderWeb.Main.Items.ItemTest do
     assert has_element?(view, "#item-0")
     assert has_element?(view, "[data-role=product-img][data-id=item-0]")
     assert has_element?(view, "[data-role=product-description]")
+    assert has_element?(view, "[data-role=product-name][data-id=item-1]", "Product with name")
     assert has_element?(view, "[data-role=product-price][data-id=item-1]", "$ 10")
     assert has_element?(view, "[data-role=product-add][data-id=item-1]")
   end
