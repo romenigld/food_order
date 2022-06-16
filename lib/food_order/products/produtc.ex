@@ -19,6 +19,7 @@ defmodule FoodOrder.Products.Product do
   def changeset(attrs) do
     changeset(%__MODULE__{}, attrs)
   end
+
   def changeset(product, attrs) do
     product
     |> cast(attrs, @fields ++ @required_fields)
