@@ -34,3 +34,6 @@ npm-debug.log
 
 # Ignore the ElixirLS
 /.elixir_ls
+
+# PostgreSQL session from the SQLTools for the VSCode Extension
+PGSQL.session.sql
