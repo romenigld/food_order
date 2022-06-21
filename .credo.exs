@@ -16,7 +16,7 @@
         {Credo.Check.Design.AliasUsage, if_nested_deeper_than: ["Faker"]},
         {Credo.Check.Design.TagTODO, exit_status: 2},
         {Credo.Check.Refactor.MapInto, false},
-        {Credo.Check.Warning.LazyLogging, false},
+        {Credo.Check.Warning.LazyLogging, false}
       ]
     }
   ]
