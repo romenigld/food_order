@@ -13,9 +13,10 @@
         {Credo.Check.Readability.MaxLineLength, max_length: 100},
         {Credo.Check.Consistency.TabsOrSpaces},
         {Credo.Check.Readability.MaxLineLength, priority: :low, max_length: 100},
+        {Credo.Check.Design.AliasUsage, if_nested_deeper_than: ["Faker"]},
         {Credo.Check.Design.TagTODO, exit_status: 2},
         {Credo.Check.Refactor.MapInto, false},
-        {Credo.Check.Warning.LazyLogging, false}
+        {Credo.Check.Warning.LazyLogging, false},
       ]
     }
   ]
