@@ -27,7 +27,7 @@ defmodule FoodOrder.MixProject do
   def application do
     [
       mod: {FoodOrder.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :ex_machina]
     ]
   end
 
@@ -61,7 +61,9 @@ defmodule FoodOrder.MixProject do
       {:sobelow, "~> 0.8", only: :dev},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
-      {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false}
+      {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:ex_machina, "~> 2.7.0"},
+      {:faker, "~> 0.17", only: [:test, :dev]}
     ]
   end
 
