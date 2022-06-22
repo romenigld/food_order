@@ -6,10 +6,8 @@ defmodule FoodOrderWeb.Admin.Products.Form.FormComponent do
     changeset = Products.change_product()
 
     {:ok,
-        socket
-        |> assign(assigns)
-        |> assign(changeset: changeset)
-    }
+     socket
+     |> assign(assigns)
+     |> assign(changeset: changeset)}
   end
-
 end

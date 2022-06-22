@@ -10,5 +10,5 @@ defmodule FoodOrder.Products do
     |> Repo.insert()
   end
 
-  def change_product(),  do: Product.changeset
+  def change_product, do: Product.changeset()
 end
