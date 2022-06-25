@@ -23,7 +23,7 @@ defmodule FoodOrderWeb.ProductLiveTest do
     assert has_element?(
              view,
              "[data-role=product-price][data-id=#{product.id}]",
-             Integer.to_string(product.price)
+             "R$2.00"
            )
 
     assert has_element?(view, "[data-role=product-size][data-id=#{product.id}]", product.size)

@@ -16,6 +16,7 @@ defmodule FoodOrderWeb.ConnCase do
   """
 
   use ExUnit.CaseTemplate
+  import Phoenix.HTML
 
   using do
     quote do
@@ -34,5 +35,11 @@ defmodule FoodOrderWeb.ConnCase do
   setup tags do
     FoodOrder.DataCase.setup_sandbox(tags)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
+  end
+
+  def html_entities_parse(string) do
+    string
+    |> html_escape()
+    |> safe_to_string()
   end
 end
