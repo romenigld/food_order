@@ -12,14 +12,14 @@ defmodule FoodOrderWeb.Admin.Products.Form.FormComponentTest do
     #  the word "can't" as "can&#39;t is a HTML entities
     assert view
            |> form("#new_product", product: %{name: nil})
-           |> render_change() =~ "can&#39;t be blank" #
+           |> render_change() =~ "can&#39;t be blank"
 
     # to use the string with the normal word "can't" it uses the function html_entities_parse()
     assert view
            |> form("#new_product", product: %{name: nil})
            |> render_change() =~ "can't be blank" |> html_entities_parse()
 
-    # and other way is the use of the Floki
+    # and other way is using the Floki
     assert view
            |> form("#new_product", product: %{name: nil})
            |> render_change()
@@ -34,6 +34,7 @@ defmodule FoodOrderWeb.Admin.Products.Form.FormComponentTest do
     payload = %{name: "pumpking", description: "abc 123", price: 123, size: "small"}
 
     assert {:ok, _product} = Products.create_product(payload)
+
     assert view
            |> form("#new_product", product: payload)
            |> render_submit() =~ "has already been taken"
