@@ -6,7 +6,7 @@ defmodule FoodOrder.Factory do
     %Product{
       description: Faker.Food.description(),
       name: Faker.Food.dish(),
-      price: Faker.Random.Elixir.random_between(1, 200),
+      price: 200,
       size: "small"
     }
   end

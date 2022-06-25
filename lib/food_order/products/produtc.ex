@@ -9,7 +9,7 @@ defmodule FoodOrder.Products.Product do
   @foreign_key_type :binary_id
   schema "products" do
     field :name, :string
-    field :price, :integer
+    field :price, Money.Ecto.Amount.Type
     field :size, :string
     field :description, :string
 
@@ -24,6 +24,6 @@ defmodule FoodOrder.Products.Product do
     product
     |> cast(attrs, @fields ++ @required_fields)
     |> validate_required(@required_fields)
-    |> unique_constraint(:name)
+    |> unique_constraint(:name, name: :products_name_index)
   end
 end
