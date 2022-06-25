@@ -28,7 +28,22 @@ defmodule FoodOrderWeb.Admin.Products.Form.FormComponentTest do
            |> Floki.text() =~ "can't be blank"
   end
 
-  test "given a product when submit the form then return changeset error", %{conn: conn} do
+  test "given a product when submit the form returns a succesful message", %{conn: conn} do
+    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+
+    payload = %{name: "soda", description: "coca-cola", price: 100, size: "small"}
+
+    {:ok, _, html} =
+       view
+       |> form("#new_product", product: payload)
+       |> render_submit()
+       |> follow_redirect(conn, Routes.admin_product_path(conn, :index))
+
+    assert html =~ "Product has created."
+    assert html =~ "soda"
+  end
+
+  test "given a product when submit the form then returns the changeset error", %{conn: conn} do
     {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
     payload = %{name: "pumpking", description: "abc 123", price: 123, size: "small"}

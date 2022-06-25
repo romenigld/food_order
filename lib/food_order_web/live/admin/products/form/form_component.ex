@@ -28,7 +28,7 @@ defmodule FoodOrderWeb.Admin.Products.Form.FormComponent do
         {:noreply,
          socket
          |> put_flash(:info, "Product has created.")
-         |> push_redirect(to: "/admin/products")}
+         |> push_redirect(to: Routes.admin_product_path(socket, :index))}
 
       {:error, changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

@@ -11,15 +11,14 @@ defmodule FoodOrder.ProductsTest do
     payload = %{
       name: "water",
       size: "small",
-      price: %Money{amount: 10, currency: :BRL},
+      price:  100,
       description: "water 1l"
     }
 
     assert {:ok, %Product{} = product} = Products.create_product(payload)
 
     assert product.name == payload.name
-    assert product.price == payload.price
-    assert product.price == %Money{amount: 10, currency: :BRL}
+    assert product.price == %Money{amount: 100, currency: :BRL}
     assert product.size == payload.size
     assert product.description == payload.description
   end
