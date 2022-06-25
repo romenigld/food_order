@@ -34,10 +34,10 @@ defmodule FoodOrderWeb.Admin.Products.Form.FormComponentTest do
     payload = %{name: "soda", description: "coca-cola", price: 100, size: "small"}
 
     {:ok, _, html} =
-       view
-       |> form("#new_product", product: payload)
-       |> render_submit()
-       |> follow_redirect(conn, Routes.admin_product_path(conn, :index))
+      view
+      |> form("#new_product", product: payload)
+      |> render_submit()
+      |> follow_redirect(conn, Routes.admin_product_path(conn, :index))
 
     assert html =~ "Product has created."
     assert html =~ "soda"

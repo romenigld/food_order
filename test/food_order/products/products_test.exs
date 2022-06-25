@@ -11,7 +11,7 @@ defmodule FoodOrder.ProductsTest do
     payload = %{
       name: "water",
       size: "small",
-      price:  100,
+      price: 100,
       description: "water 1l"
     }
 
