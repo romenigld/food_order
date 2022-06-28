@@ -28,6 +28,6 @@
 
 <%# <FoodOrderWeb.Live.LiveHelpers.modal id="live-helpers-modal" /> %>
 <%# <.live_component module={FoodOrderWeb.Live.LiveHelpers} id="live-helpers-modal" /> %>
-<.modal>
+<.modal return_to={Routes.admin_product_path(@socket, :index)} >
   <.live_component module={FormComponent} id="new_product" />
 </.modal>
