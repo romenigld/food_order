@@ -22,7 +22,7 @@
               <td class="px-4 py-3 border" data-role="product-size" data-id={product.id}><%= product.size %></td>
               <td class="px-4 py-3 border" data-role="product-actions" data-id={product.id}>
                 show |
-                <%= live_patch "Edit", to: Routes.admin_product_path(@socket, :edit, product), "data-role": "edit-product", class: "px-3 py-1 rounded-full text-white font-bold btn-primary" %> |
+                <%= live_patch "Edit", to: Routes.admin_product_path(@socket, :edit, product), "data-role": "edit-product", "data-id": product.id, class: "px-3 py-1 rounded-full text-white font-bold btn-primary" %> |
                 delete
               </td>
             </tr>
