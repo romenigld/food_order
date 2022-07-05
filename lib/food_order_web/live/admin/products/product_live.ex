@@ -9,7 +9,7 @@ defmodule FoodOrderWeb.Admin.ProductLive do
   end
 
   def handle_params(params, _url, socket) do
-    IO.inspect(params)
+    # IO.inspect(params)
     {:noreply, socket}
   end
 end
