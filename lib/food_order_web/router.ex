@@ -40,7 +40,6 @@ defmodule FoodOrderWeb.Router do
       live "/products", ProductLive, :index
       live "/products/new", ProductLive, :new
       live "/products/:id/edit", ProductLive, :edit
-
     end
   end
 

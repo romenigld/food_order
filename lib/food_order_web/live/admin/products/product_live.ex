@@ -22,6 +22,7 @@ defmodule FoodOrderWeb.Admin.ProductLive do
 
   def apply_action(socket, :edit, %{"id" => id}) do
     product = Products.get!(id)
+
     socket
     |> assign(:page_title, "Edit Product")
     |> assign(:product, product)
