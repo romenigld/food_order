@@ -3,6 +3,13 @@ defmodule FoodOrder.Products do
   alias FoodOrder.Repo
 
   def list_products, do: Repo.all(Product)
+  def get!(id), do: Repo.get!(Product, id)
+
+  def update_product(product, attrs) do
+    product
+    |> Product.changeset(attrs)
+    |> Repo.update()
+  end
 
   def create_product(attrs \\ %{}) do
     attrs
@@ -11,5 +18,5 @@ defmodule FoodOrder.Products do
   end
 
   def change_product, do: Product.changeset()
-  def change_product(product, params), do: Product.changeset(product, params)
+  def change_product(product, params \\ %{}), do: Product.changeset(product, params)
 end

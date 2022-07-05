@@ -7,7 +7,10 @@
             <th class="px-4 py-3" data-id="head-name">Name</th>
             <th class="px-4 py-3" data-id="head-price">Price</th>
             <th class="px-4 py-3" data-id="head-size">Size</th>
-            <th class="px-4 py-3" data-id="head-actions">Actions</th>
+            <th class="px-4 py-3" data-id="head-actions">
+              Actions
+              <%= live_patch "New", to: Routes.admin_product_path(@socket, :new), "data-role": "add-new-product", class: "px-3 py-1 rounded-full text-white font-bold btn-primary" %>
+            </th>
           </tr>
         </thead>
 
@@ -17,7 +20,11 @@
               <td class="px-4 py-3 border" data-role="product-name" data-id={product.id}><%= product.name %></td>
               <td class="px-4 py-3 border"data-role="product-price" data-id={product.id}><%= product.price %></td>
               <td class="px-4 py-3 border" data-role="product-size" data-id={product.id}><%= product.size %></td>
-              <td class="px-4 py-3 border" data-role="product-actions" data-id={product.id}>show | edit | delete</td>
+              <td class="px-4 py-3 border" data-role="product-actions" data-id={product.id}>
+                show |
+                <%= live_patch "Edit", to: Routes.admin_product_path(@socket, :edit, product), "data-role": "edit-product", class: "px-3 py-1 rounded-full text-white font-bold btn-primary" %> |
+                delete
+              </td>
             </tr>
           <% end %>
         </tbody>
@@ -28,6 +35,13 @@
 
 <%# <FoodOrderWeb.Live.LiveHelpers.modal id="live-helpers-modal" /> %>
 <%# <.live_component module={FoodOrderWeb.Live.LiveHelpers} id="live-helpers-modal" /> %>
-<.modal return_to={Routes.admin_product_path(@socket, :index)} >
-  <.live_component module={FormComponent} id="new_product" />
-</.modal>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.admin_product_path(@socket, :index)} >
+    <.live_component module={FormComponent}
+                     id={ @product.id || :new }
+                     action={ @live_action }
+                     product={ @product }
+                     return_to={ Routes.admin_product_path(@socket, :index) } />
+  </.modal>
+<% end %>
