@@ -62,7 +62,7 @@ defmodule FoodOrderWeb.Admin.Products.Form.FormComponentTest do
            |> render_submit() =~ "has already been taken"
   end
 
-  test "given a product that has already exist when cicked to edit then open the modal and excute an action",
+  test "given a product that has already exist when cicked to edit then open the modal and execute an action",
        %{conn: conn} do
     product = insert(:product)
     # IO.inspect(product.name)
@@ -87,6 +87,20 @@ defmodule FoodOrderWeb.Admin.Products.Form.FormComponentTest do
     assert html =~ "Product updated!"
 
     assert view |> has_element?("[data-role=product-name][data-id=#{product.id}]", "juice")
+  end
+
+  test "given a product that has already exists when try to update without information return an error",
+       %{conn: conn} do
+    product = insert(:product)
+
+    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+
+    assert view |> element("[data-role=edit-product][data-id=#{product.id}]") |> render_click()
+    assert_patch(view, Routes.admin_product_path(conn, :edit, product))
+
+    assert view
+           |> form("##{product.id}", product: %{name: nil})
+           |> render_submit() =~ "can't be blank" |> html_entities_parse()
   end
 
   defp open_modal(view) do
