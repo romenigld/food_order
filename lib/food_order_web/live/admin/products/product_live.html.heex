@@ -3,22 +3,32 @@
     <div class="w-full overflow-x-auto">
       <table class="w-full" data-role="product-table">
         <thead>
-          <tr class="font-semibold tracking-wide text-left text-gray-900 uppercase bg-gray-100 border-b border-gray-600 text-md">
+          <tr
+            class="font-semibold tracking-wide text-left text-gray-900 uppercase bg-gray-100 border-b border-gray-600 text-md">
             <th class="px-4 py-3" data-id="head-name">Name</th>
             <th class="px-4 py-3" data-id="head-price">Price</th>
             <th class="px-4 py-3" data-id="head-size">Size</th>
-            <th class="px-4 py-3" data-id="head-actions">Actions</th>
+            <th class="px-4 py-3" data-id="head-actions">
+              Actions
+              <%= live_patch "New", to: Routes.admin_product_path(@socket, :new), "data-role": "add-new-product", class: "px-3 py-1 rounded-full text-white font-bold btn-primary" %>
+            </th>
           </tr>
         </thead>
 
         <tbody class="bg-white" data-role="product-list">
           <%= for product <- @products do %>
-            <tr class="text-gray-700" data-role="product-item" data-id={product.id}>
-              <td class="px-4 py-3 border" data-role="product-name" data-id={product.id}><%= product.name %></td>
-              <td class="px-4 py-3 border"data-role="product-price" data-id={product.id}><%= product.price %></td>
-              <td class="px-4 py-3 border" data-role="product-size" data-id={product.id}><%= product.size %></td>
-              <td class="px-4 py-3 border" data-role="product-actions" data-id={product.id}>show | edit | delete</td>
-            </tr>
+          <tr class="text-gray-700" data-role="product-item" data-id={product.id}>
+            <td class="px-4 py-3 border" data-role="product-name" data-id={product.id}><%= product.name %></td>
+            <td class="px-4 py-3 border" data-role="product-price" data-id={product.id}><%= product.price %></td>
+            <td class="px-4 py-3 border" data-role="product-size" data-id={product.id}><%= product.size %></td>
+            <td class="px-4 py-3 border" data-role="product-actions" data-id={product.id}>
+              <%= live_redirect "Show", to: Routes.admin_product_show_path(@socket, :show, product), "data-role": "show-product", "data-id": product.id, class: "px-3 py-1 rounded-full text-white font-bold btn-primary bg-blue-500" %>
+              |
+              <%= live_patch "Edit", to: Routes.admin_product_path(@socket, :edit, product), "data-role": "edit-product", "data-id": product.id, class: "px-3 py-1 rounded-full text-white font-bold btn-primary" %>
+              |
+              <%= link "Delete", to: "#", phx_click: "delete", phx_value_id: product.id, data: [confirm: "Are you sure?"], class: "px-3 py-1 rounded-full text-white font-bold bg-red-500", "data-role": "delete", "data-id": product.id  %>
+            </td>
+          </tr>
           <% end %>
         </tbody>
       </table>
@@ -28,6 +38,10 @@
 
 <%# <FoodOrderWeb.Live.LiveHelpers.modal id="live-helpers-modal" /> %>
 <%# <.live_component module={FoodOrderWeb.Live.LiveHelpers} id="live-helpers-modal" /> %>
-<.modal return_to={Routes.admin_product_path(@socket, :index)} >
-  <.live_component module={FormComponent} id="new_product" />
+
+<%= if @live_action in [:new, :edit] do %>
+<.modal return_to={Routes.admin_product_path(@socket, :index)}>
+  <.live_component module={FormComponent} id={ @product.id || :new } action={ @live_action } product={ @product }
+    return_to={ Routes.admin_product_path(@socket, :index) } />
 </.modal>
+<% end %>

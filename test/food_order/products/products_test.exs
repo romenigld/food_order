@@ -7,7 +7,52 @@ defmodule FoodOrder.ProductsTest do
     assert Products.list_products() == []
   end
 
+  test "get!/1" do
+    payload = %{
+      name: "water",
+      size: "small",
+      price: 100,
+      description: "water 1l"
+    }
+
+    {:ok, product} = Products.create_product(payload)
+    assert Products.get!(product.id).name == product.name
+  end
+
+  test "delete/1" do
+    payload = %{
+      name: "water",
+      size: "small",
+      price: 100,
+      description: "water 1l"
+    }
+
+    {:ok, product} = Products.create_product(payload)
+    assert Products.get!(product.id).name == product.name
+    {:ok, %Product{}} = Products.delete(product.id)
+    assert_raise Ecto.NoResultsError, fn -> Products.get!(product.id) end
+  end
+
   test "create product" do
+    payload = %{
+      name: "water",
+      size: "small",
+      price: 100,
+      description: "water 1l"
+    }
+
+    assert {:ok, product} = Products.create_product(payload)
+
+    assert {:ok, %Product{} = update_product} =
+             Products.update_product(product, %{name: "abobora"})
+
+    assert update_product.name == "abobora"
+    assert update_product.price == %Money{amount: 100, currency: :BRL}
+    assert update_product.size == payload.size
+    assert update_product.description == payload.description
+  end
+
+  test "update product" do
     payload = %{
       name: "water",
       size: "small",

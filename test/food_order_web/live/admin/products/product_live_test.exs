@@ -28,10 +28,20 @@ defmodule FoodOrderWeb.ProductLiveTest do
 
     assert has_element?(view, "[data-role=product-size][data-id=#{product.id}]", product.size)
 
-    assert has_element?(
-             view,
-             "[data-role=product-actions][data-id=#{product.id}]",
-             "show | edit | delete"
-           )
+    assert has_element?(view, "[data-role=product-actions][data-id=#{product.id}]")
+  end
+
+  test "given a product that has already exists when click to delete then removes the product from the db",
+       %{conn: conn} do
+    product = insert(:product)
+
+    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+    assert has_element?(view, "[data-role=delete][data-id=#{product.id}]", "Delete")
+
+    assert view
+           |> element("[data-role=delete][data-id=#{product.id}]", "Delete")
+           |> render_click()
+
+    refute has_element?(view, "[data-role=delete][data-id=#{product.id}]")
   end
 end
