@@ -10,6 +10,7 @@
   --primary: #fe5f1e;
   --primary-hover: #ec7944;
   --secondary: #ffc82a;
+  --third: rgb(144, 243, 95);
   --pure: #fff;
   --dark: #232323;
   --gray: #ccc;
@@ -55,7 +56,7 @@ nav li a:hover {
 }
 
 section.hero {
-  background: var(--third);
+  background: var(--gray);
 }
 
 .size {
@@ -85,7 +86,7 @@ section.hero {
 }
 
 section.login {
-  background: var(--pure);
+  background: var(--gray);
   min-height: calc(100vh - 86px);
 }
 
@@ -99,7 +100,7 @@ section.login a:hover {
 }
 
 section.cart {
-  background: var(--secondary);
+  background: var(--third);
 }
 
 section.cart .amount {
@@ -107,7 +108,7 @@ section.cart .amount {
 }
 
 section.login {
-  background: var(--secondary);
+  background: var(--gray);
   min-height: calc(100vh - 86px);
 }
 
