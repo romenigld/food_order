@@ -5,7 +5,7 @@ defmodule FoodOrderWeb.Admin.Products.Form.FormComponentTest do
   import FoodOrder.Factory
 
   describe "test product form" do
-    setup :register_and_log_in_user
+    setup :register_and_log_in_admin
 
     test "load product to insert product", %{conn: conn} do
       {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
