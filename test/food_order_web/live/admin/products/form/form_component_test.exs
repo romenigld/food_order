@@ -4,103 +4,107 @@ defmodule FoodOrderWeb.Admin.Products.Form.FormComponentTest do
   alias FoodOrder.Products
   import FoodOrder.Factory
 
-  test "load product to insert product", %{conn: conn} do
-    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+  describe "test product form" do
+    setup :register_and_log_in_admin
 
-    open_modal(view)
+    test "load product to insert product", %{conn: conn} do
+      {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
-    assert has_element?(view, "[data-role=modal]")
-    assert has_element?(view, "[data-role=product-form]")
+      open_modal(view)
 
-    #  the word "can't" as "can&#39;t is a HTML entities
-    assert view
-           |> form("#new", product: %{name: nil})
-           |> render_change() =~ "can&#39;t be blank"
+      assert has_element?(view, "[data-role=modal]")
+      assert has_element?(view, "[data-role=product-form]")
 
-    # to use the string with the normal word "can't" it uses the function html_entities_parse()
-    assert view
-           |> form("#new", product: %{name: nil})
-           |> render_change() =~ "can't be blank" |> html_entities_parse()
+      #  the word "can't" as "can&#39;t is a HTML entities
+      assert view
+             |> form("#new", product: %{name: nil})
+             |> render_change() =~ "can&#39;t be blank"
 
-    # and other way is using the Floki
-    assert view
-           |> form("#new", product: %{name: nil})
-           |> render_change()
-           |> Floki.parse_document!()
-           |> Floki.find("span.invalid-feedback")
-           |> Floki.text() =~ "can't be blank"
-  end
+      # to use the string with the normal word "can't" it uses the function html_entities_parse()
+      assert view
+             |> form("#new", product: %{name: nil})
+             |> render_change() =~ "can't be blank" |> html_entities_parse()
 
-  test "given a product when submit the form returns a succesful message", %{conn: conn} do
-    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+      # and other way is using the Floki
+      assert view
+             |> form("#new", product: %{name: nil})
+             |> render_change()
+             |> Floki.parse_document!()
+             |> Floki.find("span.invalid-feedback")
+             |> Floki.text() =~ "can't be blank"
+    end
 
-    open_modal(view)
+    test "given a product when submit the form returns a succesful message", %{conn: conn} do
+      {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
-    payload = %{name: "soda", description: "coca-cola", price: 100, size: "small"}
+      open_modal(view)
 
-    {:ok, _, html} =
-      view
-      |> form("#new", product: payload)
-      |> render_submit()
-      |> follow_redirect(conn, Routes.admin_product_path(conn, :index))
+      payload = %{name: "soda", description: "coca-cola", price: 100, size: "small"}
 
-    assert html =~ "Product has created!"
-    assert html =~ "soda"
-  end
+      {:ok, _, html} =
+        view
+        |> form("#new", product: payload)
+        |> render_submit()
+        |> follow_redirect(conn, Routes.admin_product_path(conn, :index))
 
-  test "given a product when submit the form then returns the changeset error", %{conn: conn} do
-    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+      assert html =~ "Product has created!"
+      assert html =~ "soda"
+    end
 
-    open_modal(view)
+    test "given a product when submit the form then returns the changeset error", %{conn: conn} do
+      {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
-    payload = %{name: "pumpking", description: "abc 123", price: 123, size: "small"}
+      open_modal(view)
 
-    assert {:ok, _product} = Products.create_product(payload)
+      payload = %{name: "pumpking", description: "abc 123", price: 123, size: "small"}
 
-    assert view
-           |> form("#new", product: payload)
-           |> render_submit() =~ "has already been taken"
-  end
+      assert {:ok, _product} = Products.create_product(payload)
 
-  test "given a product that has already exist when cicked to edit then open the modal and execute an action",
-       %{conn: conn} do
-    product = insert(:product)
-    # IO.inspect(product.name)
+      assert view
+             |> form("#new", product: payload)
+             |> render_submit() =~ "has already been taken"
+    end
 
-    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+    test "given a product that has already exist when cicked to edit then open the modal and execute an action",
+         %{conn: conn} do
+      product = insert(:product)
+      # IO.inspect(product.name)
 
-    assert view |> element("[data-role=edit-product][data-id=#{product.id}]") |> render_click()
-    assert view |> has_element?("#modal")
+      {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
-    assert_patch(view, Routes.admin_product_path(conn, :edit, product))
+      assert view |> element("[data-role=edit-product][data-id=#{product.id}]") |> render_click()
+      assert view |> has_element?("#modal")
 
-    assert view
-           |> form("##{product.id}", product: %{name: nil})
-           |> render_change() =~ "can't be blank" |> html_entities_parse()
+      assert_patch(view, Routes.admin_product_path(conn, :edit, product))
 
-    {:ok, view, html} =
-      view
-      |> form("##{product.id}", product: %{name: "juice"})
-      |> render_submit()
-      |> follow_redirect(conn, Routes.admin_product_path(conn, :index))
+      assert view
+             |> form("##{product.id}", product: %{name: nil})
+             |> render_change() =~ "can't be blank" |> html_entities_parse()
 
-    assert html =~ "Product updated!"
+      {:ok, view, html} =
+        view
+        |> form("##{product.id}", product: %{name: "juice"})
+        |> render_submit()
+        |> follow_redirect(conn, Routes.admin_product_path(conn, :index))
 
-    assert view |> has_element?("[data-role=product-name][data-id=#{product.id}]", "juice")
-  end
+      assert html =~ "Product updated!"
 
-  test "given a product that has already exists when try to update without information return an error",
-       %{conn: conn} do
-    product = insert(:product)
+      assert view |> has_element?("[data-role=product-name][data-id=#{product.id}]", "juice")
+    end
 
-    {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
+    test "given a product that has already exists when try to update without information return an error",
+         %{conn: conn} do
+      product = insert(:product)
 
-    assert view |> element("[data-role=edit-product][data-id=#{product.id}]") |> render_click()
-    assert_patch(view, Routes.admin_product_path(conn, :edit, product))
+      {:ok, view, _html} = live(conn, Routes.admin_product_path(conn, :index))
 
-    assert view
-           |> form("##{product.id}", product: %{name: nil})
-           |> render_submit() =~ "can't be blank" |> html_entities_parse()
+      assert view |> element("[data-role=edit-product][data-id=#{product.id}]") |> render_click()
+      assert_patch(view, Routes.admin_product_path(conn, :edit, product))
+
+      assert view
+             |> form("##{product.id}", product: %{name: nil})
+             |> render_submit() =~ "can't be blank" |> html_entities_parse()
+    end
   end
 
   defp open_modal(view) do
